@@ -2,11 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        *{
+            text-align: center;
+            color: red;
+        }
+        
+
+    </style>
+
+
 </head>
 <body>
-    <h1>Hola Santi</h1>
-    <h2>De nuevo</h2>
+    
+        <h2>Formulario</h2>
+        <form class="frm" onsubmit="return validar()">
+            <label>Pelicula*</label> <input id="nombrePeli" /> <br/>
+            <label>Puntuacion*</label> <input id="numPuntuacion" /> <br/>
+            <label>Comentario*</label> <input id="comentario"/><br/>
+            <button type="submit" onclick="validar()">Enviar</button> <button type="reset">Limpiar</button>
+
+        </form>
+
+        <ol id="listErrores"></ol>
+        <ol id="listMnsj"></ol>
+
+        <p id="mnsj"></p>
+
+    <script>
+        let nombrePeli = document.getElementById("nombrePeli");
+        let numPuntuacion = document.getElementById("numPuntuacion");
+        let comentario = document.getElementById("comentario");
+        let listErrores = document.getElementById("listErrores");
+        let listMnsj = document.getElementById("listMnsj");
+
+
+        function validar(){
+            listErrores.innerHTML = ''; 
+            nombrePeli.classList.remove("error");
+            numPuntuacion.classList.remove("error");
+            comentario.classList.remove("error");
+             
+            let errors =[];
+            let nbre = nombrePeli.value.trim();
+            let calif = numPuntuacion.value.trim()
+            let coment = comentario.value.trim();
+            if(nbre.length ==0 ){
+                errors.push("ingrese nombre de pelicula")
+                nombrePeli.classList.add("error")
+            }else if(nbre.length > 30){
+                errors.push("nombre muy largo(max 30 caracteres)")
+                nombrePeli.classList.add("error")
+            }
+
+            if(calif > 5 || calif < 1 || calif == ''){
+                errors.push("ingrese un valor del 1 al 5")
+                numPuntuacion.classList.add("error")
+            }
+
+            if(coment < 10 || coment >200 ){
+                errors.push("demasiados caracteres (min 10, max 200)")
+                comentario.classList.add("error");
+            }            
+
+            for(let erro of errors){
+                let lis = document.createElement("li")
+                li.innerHTML = erro;
+                listErrores.appendChild(li);
+            }
+
+
+
+
+            form.reset();
+
+            function limpiar(){
+                document.forms[0].reset();
+
+            }
+
+
+        }
+    </script>
 </body>
 </html>
